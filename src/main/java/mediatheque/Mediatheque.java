@@ -1,3 +1,7 @@
+/**
+ *
+ * @author mmarty01
+ */
 package mediatheque;
 
 import java.util.LinkedList;
@@ -5,7 +9,7 @@ import java.util.List;
 
 
 public class Mediatheque {
-	private List<Item> items = new LinkedList<Item>();
+	private final List<Item> items = new LinkedList<>();
 
 	public static void main(String[] args) {
 		Mediatheque mediatheque = new Mediatheque();
@@ -14,8 +18,8 @@ public class Mediatheque {
 		mediatheque.addItem( new Book("Philip K. Dick", "Le Maître du haut chateau"));
 		mediatheque.addItem( new CD(12, "Sergeant Peppers"));
 		mediatheque.printCatalog();
-		//mediatheque.printOnlyBooks();
-		//mediatheque.printOnlyCDs();		
+		mediatheque.printOnlyBooks();
+		mediatheque.printOnlyCDs();		
 	}
 	
 	public void addItem(Item i) {
@@ -23,22 +27,31 @@ public class Mediatheque {
 	}
 	
 	public void printCatalog() {
-		for (Item i : items)
-			System.out.println(i);
+		accept(new ItemPrinter());
 	}
 	
 	public void printOnlyBooks() {
-		throw new UnsupportedOperationException("Not supported yet."); 
-		/*
-		//avec instanceof
-		for (Item i : items)
-			if (i instanceof Book)
-				System.out.println(i);
-		*/
+		accept( 
+			
+			new ItemPrinter() {
+				@Override
+				public void visit(CD cd) {  }
+			} 
+		);
 	}
 
 	public void printOnlyCDs() {
-		throw new UnsupportedOperationException("Not supported yet."); 
+		accept( 
+			new ItemPrinter() {
+				@Override
+				public void visit(Book b) {  }
+			} 
+		);
 	}
 
+	private void accept(ItemVisitor v) {
+		for (Item i : items)
+			i.accept(v);
+	}
 }
+

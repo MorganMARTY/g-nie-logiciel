@@ -1,3 +1,8 @@
+/**
+ *
+ * @author mmarty01
+ */
+
 package mediatheque;
 
 public class CD extends Item {
@@ -16,9 +21,15 @@ public class CD extends Item {
 		this.numberOfTracks = numberOfTracks;
 	}
 
+
 	@Override
 	public String toString() {
 		return "CD{" + super.toString() + ",numberOfTracks=" + numberOfTracks + '}';
+	}
+
+	@Override
+	public void accept(ItemVisitor v) {
+		v.visit(this);
 	}
 	
 	

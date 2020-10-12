@@ -1,3 +1,7 @@
+/**
+ *
+ * @author mmarty01
+ */
 
 package mediatheque;
 
@@ -8,6 +12,11 @@ public class Book extends Item {
 	public Book(String author, String title) {
 		super(title);
 		this.author = author;
+	}
+
+	@Override
+	public void accept(ItemVisitor v) {
+		v.visit(this);
 	}
 
 	public String getAuthor() {

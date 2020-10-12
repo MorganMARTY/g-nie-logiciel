@@ -1,3 +1,8 @@
+/**
+ *
+ * @author mmarty01
+ */
+
 package mediatheque;
 
 public abstract class Item {
@@ -7,6 +12,8 @@ public abstract class Item {
 		this.title = title;
 	}
 
+	public abstract void accept(ItemVisitor v); // A implémenter dans chaque sous-classe
+	
 	public String getTitle() {
 		return title;
 	}
@@ -21,3 +28,4 @@ public abstract class Item {
 	}
 	
 }
+
